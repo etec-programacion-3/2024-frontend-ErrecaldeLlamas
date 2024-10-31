@@ -1,0 +1,71 @@
+<div class="auth-container">
+  <h2>{{ isLoginMode ? "Login" : "Sign Up" }}</h2>
+
+  <div *ngIf="message" class="success-message">{{ message }}</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <!-- Formulario de Login -->
+  <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      placeholder="Enter your email"
+      required
+    />
+
+    <label for="password">Password</label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      placeholder="Enter your password"
+      required
+    />
+
+    <button type="submit" [disabled]="isLoading">
+      <span *ngIf="isLoading" class="spinner"></span>
+      {{ isLoading ? "Logging in..." : "Login" }}
+    </button>
+  </form>
+
+  <!-- Formulario de Sign Up -->
+  <form *ngIf="!isLoginMode" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+    <label for="username">Username</label>
+    <input
+      id="username"
+      type="text"
+      formControlName="username"
+      placeholder="Enter your username"
+      required
+    />
+
+    <label for="email-signup">Email</label>
+    <input
+      id="email-signup"
+      type="email"
+      formControlName="email"
+      placeholder="Enter your email"
+      required
+    />
+
+    <label for="password-signup">Password</label>
+    <input
+      id="password-signup"
+      type="password"
+      formControlName="password"
+      placeholder="Enter your password"
+      required
+    />
+
+    <button type="submit" [disabled]="isLoading">
+      <span *ngIf="isLoading" class="spinner"></span>
+      {{ isLoading ? "Signing up..." : "Sign Up" }}
+    </button>
+  </form>
+
+  <button class="toggle-button" (click)="toggleMode()">
+    {{ isLoginMode ? "Switch to Sign Up" : "Switch to Login" }}
+  </button>
+</div>

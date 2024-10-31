@@ -1,7 +1,18 @@
-<!-- src/app/app.component.html -->
-<nav>
-  <a routerLink="/">Inicio</a>
-  <a routerLink="/about">Acerca de</a>
-  <a routerLink="/products">Productos</a>
-</nav>
-<router-outlet></router-outlet>
+<header>
+  <h1>Angular Ecommerce</h1>
+  <nav>
+    <a routerLink="/auth" routerLinkActive="active">Auth</a>
+    <a routerLink="/" routerLinkActive="active">Home</a>
+    <a routerLink="/user-profile" routerLinkActive="active">User Profile</a>
+    <a routerLink="/products" routerLinkActive="active">Products</a>
+    <a routerLink="/cart" routerLinkActive="active">Cart</a>
+  </nav>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <p>&copy; 2024 Angular Ecommerce. Todos los derechos reservados.</p>
+</footer>
