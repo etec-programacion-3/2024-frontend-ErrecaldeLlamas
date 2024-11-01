@@ -1,71 +1,41 @@
 <div class="auth-container">
-  <h2>{{ isLoginMode ? "Login" : "Sign Up" }}</h2>
+  <h1>{{ isLoginMode ? "Iniciar Sesión" : "Registrarse" }}</h1>
 
-  <div *ngIf="message" class="success-message">{{ message }}</div>
-  <div *ngIf="error" class="error-message">{{ error }}</div>
+  <!-- Formulario de autenticación -->
+  <form (ngSubmit)="onSubmit()">
+    <!-- Campo de nombre solo para el modo de registro -->
+    <div *ngIf="!isLoginMode">
+      <label for="username">Nombre</label>
+      <input
+        type="text"
+        id="username"
+        [(ngModel)]="username"
+        name="username"
+        required
+      />
+    </div>
 
-  <!-- Formulario de Login -->
-  <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <label for="email">Email</label>
+    <label for="email">Correo Electrónico</label>
+    <input type="email" id="email" [(ngModel)]="email" name="email" required />
+
+    <label for="password">Contraseña</label>
     <input
-      id="email"
-      type="email"
-      formControlName="email"
-      placeholder="Enter your email"
-      required
-    />
-
-    <label for="password">Password</label>
-    <input
+      type="password"
       id="password"
-      type="password"
-      formControlName="password"
-      placeholder="Enter your password"
+      [(ngModel)]="password"
+      name="password"
       required
     />
 
-    <button type="submit" [disabled]="isLoading">
-      <span *ngIf="isLoading" class="spinner"></span>
-      {{ isLoading ? "Logging in..." : "Login" }}
+    <!-- Botones para enviar el formulario y cambiar de modo -->
+    <button type="submit">
+      {{ isLoginMode ? "Ingresar" : "Registrarse" }}
     </button>
-  </form>
-
-  <!-- Formulario de Sign Up -->
-  <form *ngIf="!isLoginMode" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
-    <label for="username">Username</label>
-    <input
-      id="username"
-      type="text"
-      formControlName="username"
-      placeholder="Enter your username"
-      required
-    />
-
-    <label for="email-signup">Email</label>
-    <input
-      id="email-signup"
-      type="email"
-      formControlName="email"
-      placeholder="Enter your email"
-      required
-    />
-
-    <label for="password-signup">Password</label>
-    <input
-      id="password-signup"
-      type="password"
-      formControlName="password"
-      placeholder="Enter your password"
-      required
-    />
-
-    <button type="submit" [disabled]="isLoading">
-      <span *ngIf="isLoading" class="spinner"></span>
-      {{ isLoading ? "Signing up..." : "Sign Up" }}
+    <button type="button" (click)="toggleMode()">
+      Cambiar a {{ isLoginMode ? "Registrarse" : "Ingresar" }}
     </button>
-  </form>
 
-  <button class="toggle-button" (click)="toggleMode()">
-    {{ isLoginMode ? "Switch to Sign Up" : "Switch to Login" }}
-  </button>
+    <!-- Mensaje de error -->
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </form>
 </div>

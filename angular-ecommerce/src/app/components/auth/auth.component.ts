@@ -1,83 +1,52 @@
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserService } from '/Users/facundollamas/Desktop/front-end/2024-frontend-ErrecaldeLlamas/angular-ecommerce/src/app/services/user.service'; // Importar el servicio de usuario
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-auth',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
-  standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
 })
 export class AuthComponent {
-  loginForm: FormGroup;
-  signUpForm: FormGroup;
+  email = '';
+  password = '';
+  username = '';
   isLoginMode = true;
-  isLoading = false;
-  message: string | null = null;
-  error: string | null = null;
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
-    // Formulario de Login
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
-    // Formulario de Sign Up
-    this.signUpForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-  }
-
-  toggleMode() {
+  toggleMode(): void {
     this.isLoginMode = !this.isLoginMode;
-    this.message = null;
-    this.error = null;
   }
 
-  onLogin() {
-    if (this.loginForm.valid) {
-      this.isLoading = true;
-      this.userService.login(this.loginForm.value).subscribe(
+  onSubmit(): void {
+    if (this.isLoginMode) {
+      this.userService.login(this.email, this.password).subscribe(
         (response) => {
-          this.isLoading = false;
-          this.message = 'Login successful!';
-          this.error = null;
+          this.cookieService.set('authToken', response.token); // Guarda el token en la cookie
+          this.router.navigate(['/home']); // Redirige al home
         },
         (error) => {
-          this.isLoading = false;
-          this.error = 'Login failed. Please check your credentials.';
-          this.message = null;
+          this.errorMessage = 'Usuario o contraseña incorrectos';
         }
       );
-    }
-  }
-
-  onSignUp() {
-    if (this.signUpForm.valid) {
-      this.isLoading = true;
-      this.userService.createUser(this.signUpForm.value).subscribe(
-        (response) => {
-          this.isLoading = false;
-          this.message = 'Sign up successful!';
-          this.error = null;
-        },
-        (error) => {
-          this.isLoading = false;
-          this.error = 'Sign up failed. Please try again.';
-          this.message = null;
-        }
-      );
+    } else {
+      this.userService
+        .createUser(this.username, this.email, this.password)
+        .subscribe(
+          () => this.router.navigate(['/home']),
+          (error) => (this.errorMessage = 'Error en el registro')
+        );
     }
   }
 }
