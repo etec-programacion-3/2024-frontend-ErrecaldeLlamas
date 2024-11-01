@@ -34,7 +34,8 @@ export class AuthComponent {
       this.userService.login(this.email, this.password).subscribe(
         (response) => {
           this.cookieService.set('authToken', response.token); // Guarda el token en la cookie
-          this.router.navigate(['/home']); // Redirige al home
+          this.router.navigate(['/']); // Redirige al home
+          console.log('hola');
         },
         (error) => {
           this.errorMessage = 'Usuario o contraseña incorrectos';
@@ -44,7 +45,7 @@ export class AuthComponent {
       this.userService
         .createUser(this.username, this.email, this.password)
         .subscribe(
-          () => this.router.navigate(['/home']),
+          () => this.router.navigate(['/wef']),
           (error) => (this.errorMessage = 'Error en el registro')
         );
     }
