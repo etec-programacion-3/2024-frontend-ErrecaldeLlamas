@@ -8,17 +8,18 @@ import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { AuthComponent } from './components/auth/auth.component'; // Importa AuthComponent
+import { AuthComponent } from './components/auth/auth.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'products', component: ProductListComponent }, // Ruta para el listado de productos
+  { path: 'products/:id', component: ProductDetailsComponent }, // Ruta para los detalles del producto
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'profile', component: UserProfileComponent },
-  { path: 'auth', component: AuthComponent }, // Ruta para Login / Sign-In
-  { path: '**', redirectTo: '' }, // Redirección para rutas no encontradas
+  { path: 'auth', component: AuthComponent },
+  { path: '**', redirectTo: 'home' }, // Redirige cualquier ruta desconocida al home
 ];

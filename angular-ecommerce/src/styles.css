@@ -1,26 +1,15 @@
+/* Estilos globales */
 html,
 body {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
+  color: #333; /* Color principal de texto */
+  background-color: #f3f3f3; /* Fondo claro */
 }
 
 app-root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-app-auth {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-router-outlet {
-  flex-grow: 0.5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

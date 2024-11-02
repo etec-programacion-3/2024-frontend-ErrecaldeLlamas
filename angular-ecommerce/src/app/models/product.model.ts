@@ -8,4 +8,5 @@ export interface Product {
   color: string;
   description: string;
   stock: number;
+  imageUrl?: string; // Añade esta línea
 }

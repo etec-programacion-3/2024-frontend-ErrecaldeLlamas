@@ -1,78 +1,126 @@
-/* Estilos principales para el contenedor del formulario */
+/* Fondo difuminado y centrado */
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Contenedor del formulario */
 .auth-container {
   max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
 .auth-container h1 {
-  font-size: 1.5em;
+  font-size: 1.8em;
   margin-bottom: 20px;
   color: #333;
+  font-weight: 500;
 }
 
-/* Estilos de formulario */
 form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 form div {
   margin-bottom: 15px;
+  width: 100%;
 }
 
 label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #555;
+  color: #666;
+  font-size: 0.9em;
 }
 
 input {
   width: 100%;
-  padding: 10px;
-  font-size: 1em;
+  padding: 12px;
+  font-size: 0.95em;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+  border-radius: 6px;
+  background-color: #f7f7f7;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Estilos de los botones */
+input:focus {
+  border-color: #999;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
 button {
   margin-top: 10px;
-  padding: 10px;
+  padding: 12px;
   font-size: 1em;
+  font-weight: 500;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 button[type="submit"] {
-  background-color: #28a745;
-  color: white;
+  background-color: #555;
+  color: #ffffff;
 }
 
 button[type="button"] {
-  background-color: #007bff;
-  color: white;
+  background-color: #777;
+  color: #ffffff;
 }
 
 button[type="submit"]:hover {
-  background-color: #218838;
+  background-color: #444;
+  transform: translateY(-2px);
 }
 
 button[type="button"]:hover {
-  background-color: #0069d9;
+  background-color: #666;
+  transform: translateY(-2px);
 }
 
-/* Mensaje de error */
+.back-button {
+  background-color: transparent;
+  color: #555;
+  font-size: 0.9em;
+  margin-top: 20px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  color: #333;
+  text-decoration: none;
+}
+
 .error {
-  color: red;
+  color: #d32f2f;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: #388e3c;
   font-size: 0.9em;
   margin-top: 10px;
 }

@@ -1,3 +1,4 @@
+// src/app/components/auth/auth.component.ts
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,8 +8,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-auth',
-  standalone: true,
-  imports: [FormsModule, CommonModule],
+  standalone: true, // Este es esencial para componentes standalone
+  imports: [FormsModule, CommonModule], // Asegúrate de que FormsModule esté importado
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
 })
@@ -18,6 +19,7 @@ export class AuthComponent {
   username = '';
   isLoginMode = true;
   errorMessage = '';
+  successMessage = ''; // Variable para el mensaje de éxito
 
   constructor(
     private userService: UserService,
@@ -27,27 +29,40 @@ export class AuthComponent {
 
   toggleMode(): void {
     this.isLoginMode = !this.isLoginMode;
+    this.errorMessage = '';
+    this.successMessage = ''; // Reiniciar mensaje al cambiar de modo
   }
 
   onSubmit(): void {
     if (this.isLoginMode) {
       this.userService.login(this.email, this.password).subscribe(
         (response) => {
-          this.cookieService.set('authToken', response.token); // Guarda el token en la cookie
-          this.router.navigate(['/']); // Redirige al home
-          console.log('hola');
+          this.cookieService.set('authToken', response.token);
+          this.router.navigate(['/']);
         },
         (error) => {
           this.errorMessage = 'Usuario o contraseña incorrectos';
+          this.successMessage = '';
         }
       );
     } else {
       this.userService
         .createUser(this.username, this.email, this.password)
         .subscribe(
-          () => this.router.navigate(['/wef']),
-          (error) => (this.errorMessage = 'Error en el registro')
+          () => {
+            this.successMessage = 'Cuenta creada correctamente';
+            this.errorMessage = '';
+            this.isLoginMode = true;
+          },
+          (error) => {
+            this.errorMessage = 'Error en el registro';
+            this.successMessage = '';
+          }
         );
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/']);
   }
 }

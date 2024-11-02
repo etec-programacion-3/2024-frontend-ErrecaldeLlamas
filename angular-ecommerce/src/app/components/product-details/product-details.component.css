@@ -1,0 +1,22 @@
+/* Estilos para los detalles del producto */
+.product-image {
+  max-width: 300px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+h2 {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.1em;
+  margin: 5px 0;
+}
+
+strong {
+  font-weight: bold;
+}

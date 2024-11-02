@@ -1,11 +1,24 @@
 <header>
-  <h1>Angular Ecommerce</h1>
-  <nav>
-    <a routerLink="/auth" routerLinkActive="active">Auth</a>
-    <a routerLink="/" routerLinkActive="active">Home</a>
-    <a routerLink="/user-profile" routerLinkActive="active">User Profile</a>
-    <a routerLink="/products" routerLinkActive="active">Products</a>
-    <a routerLink="/cart" routerLinkActive="active">Cart</a>
+  <div class="header-top">
+    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <input
+      type="text"
+      placeholder="Buscar productos, marcas y más..."
+      class="search-bar"
+    />
+    <div class="header-links">
+      <a routerLink="/home" class="header-link">Inicio</a>
+      <a routerLink="/products" class="header-link">Productos</a>
+      <!-- Enlace a productos -->
+      <a routerLink="/cart" class="header-link">Carrito</a>
+      <a routerLink="/auth" class="header-link">Log in - Sign in</a>
+    </div>
+  </div>
+  <nav class="categories-nav">
+    <a routerLink="/categories" class="category-link">Categorías</a>
+    <a routerLink="/offers" class="category-link">Ofertas</a>
+    <a routerLink="/coupons" class="category-link">Cupones</a>
+    <a routerLink="/help" class="category-link">Ayuda</a>
   </nav>
 </header>
 
