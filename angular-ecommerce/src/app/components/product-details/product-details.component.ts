@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service'; // Importa el CartService
 import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,10 +16,12 @@ import { HttpClientModule } from '@angular/common/http';
 export class ProductDetailsComponent implements OnInit {
   product: Product | null = null;
   errorMessage: string = '';
+  successMessage: string = ''; // Variable para mensaje de éxito
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService // Inyecta el CartService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +37,21 @@ export class ProductDetailsComponent implements OnInit {
         },
         (error) => {
           this.errorMessage = 'No se pudo cargar el producto.';
+        }
+      );
+    }
+  }
+
+  // Método para agregar el producto al carrito
+  addToCart(): void {
+    if (this.product) {
+      this.cartService.addToCart(this.product.id, 1).subscribe(
+        () => {
+          this.successMessage = 'Producto agregado al carrito exitosamente.';
+          setTimeout(() => (this.successMessage = ''), 3000); // Oculta el mensaje después de 3 segundos
+        },
+        (error) => {
+          this.errorMessage = 'No se pudo agregar el producto al carrito.';
         }
       );
     }

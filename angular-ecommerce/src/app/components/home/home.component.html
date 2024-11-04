@@ -1,1 +1,24 @@
-<p>home works!</p>
+<div class="home-container">
+  <h1>Bienvenido a nuestra tienda</h1>
+  <p *ngIf="isLoggedIn">¡Estamos felices de tenerte de vuelta!</p>
+  <p *ngIf="!isLoggedIn">
+    Por favor, inicia sesión para una mejor experiencia.
+  </p>
+
+  <div class="product-grid">
+    <div *ngFor="let product of products" class="product-card">
+      <img
+        [src]="product.imageUrl || 'assets/default-product.jpg'"
+        alt="{{ product.name }}"
+        class="product-image"
+      />
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        <p class="product-price">{{ product.price | currency }}</p>
+        <button *ngIf="isLoggedIn" class="add-to-cart-btn">
+          Agregar al carrito
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

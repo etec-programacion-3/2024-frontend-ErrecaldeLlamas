@@ -1,29 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service'; // Asegúrate de importar el servicio de cookies
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private apiUrl = 'http://localhost:3000/api/users';
-  private loggedInUser: any = null;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {} // Inyecta el servicio de cookies
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private cartService: CartService,
+    private router: Router
+  ) {}
 
-  // Método para obtener todos los usuarios
+  // Obtener todos los usuarios
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  // Método para obtener un usuario por ID
+  // Obtener un usuario por ID
   getUserById(userId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${userId}`);
   }
 
-  // Método para crear un nuevo usuario (Registro)
+  // Crear un nuevo usuario
   createUser(
     username: string,
     email: string,
@@ -37,7 +43,7 @@ export class UserService {
     );
   }
 
-  // Método para actualizar un usuario
+  // Actualizar un usuario
   updateUser(userId: number, username: string, email: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put<any>(
@@ -47,7 +53,7 @@ export class UserService {
     );
   }
 
-  // Método para eliminar un usuario
+  // Eliminar un usuario
   deleteUser(userId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${userId}`);
   }
@@ -59,9 +65,62 @@ export class UserService {
       .post<any>(`${this.apiUrl}/login`, { email, password }, { headers })
       .pipe(
         tap((response) => {
-          // Almacena el token en una cookie al iniciar sesión
-          this.cookieService.set('authToken', response.token); // Cambia esto según tu respuesta
+          this.cookieService.set('authToken', response.token);
+          this.cookieService.set('userRole', response.role);
+          this.cookieService.set('userId', response.user.id.toString());
+          if (response.cartId) {
+            this.cookieService.set('cartId', response.cartId.toString());
+          }
+        }),
+        switchMap((response) => {
+          if (!response.cartId) {
+            return this.cartService.createCart(response.user.id).pipe(
+              tap((cart) => {
+                this.cookieService.set('cartId', cart.id.toString());
+              }),
+              switchMap(
+                () => new Observable((observer) => observer.next(response))
+              )
+            );
+          }
+          return new Observable((observer) => observer.next(response));
+        }),
+        tap(() => {
+          this.router.navigate(['/']);
+        }),
+        catchError((error) => {
+          console.error('Error en el inicio de sesión:', error);
+          return throwError(() => new Error('Error en el inicio de sesión.'));
         })
       );
+  }
+
+  // Obtener rol del usuario actual
+  getUserRole(): string {
+    return this.cookieService.get('userRole');
+  }
+
+  // Verificar si el usuario es administrador
+  isAdmin(): boolean {
+    return this.getUserRole() === 'admin';
+  }
+
+  // Obtener el cartId del usuario actual
+  getUserCartId(): string | null {
+    return this.cookieService.get('cartId');
+  }
+
+  // Obtener el userId del usuario actual
+  getUserId(): string | null {
+    return this.cookieService.get('userId');
+  }
+
+  // Método de cierre de sesión
+  logout(): void {
+    this.cookieService.delete('authToken');
+    this.cookieService.delete('userRole');
+    this.cookieService.delete('userId');
+    this.cookieService.delete('cartId');
+    this.router.navigate(['/auth']);
   }
 }

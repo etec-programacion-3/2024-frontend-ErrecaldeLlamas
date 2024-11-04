@@ -1,49 +1,83 @@
-/* Estilos de cuadrícula de productos */
+/* Estilo de la cuadrícula de productos */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(150px, 1fr)
+  ); /* Cambié el tamaño mínimo a 150px */
+  gap: 16px; /* Reducir el espacio entre tarjetas */
+  padding: 16px;
   margin-top: 20px;
 }
 
+/* Tarjeta de cada producto */
 .product-card {
-  border: 1px solid #ddd;
+  background-color: #ffffff;
   border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  transition: transform 0.3s;
-  background-color: #fff;
+  padding: 12px; /* Reducir padding interno */
 }
 
 .product-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Imagen del producto */
 .product-image {
   width: 100%;
-  height: auto;
-  border-radius: 4px;
+  height: 120px; /* Ajuste la altura de la imagen para reducir el tamaño */
+  object-fit: cover;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 8px;
 }
 
-.price {
+/* Detalles del producto */
+.product-details {
+  padding: 8px;
+  flex-grow: 1;
+}
+
+.product-details h3 {
+  font-size: 1em; /* Tamaño de fuente más pequeño */
+  color: #333333;
+  margin: 4px 0;
+  font-weight: 600;
+}
+
+.product-details p {
+  font-size: 0.8em; /* Reducir tamaño de texto */
+  color: #777777;
+  margin: 4px 0;
+}
+
+/* Precio del producto */
+.product-price {
+  font-size: 1em; /* Reducir tamaño de precio */
   color: #2c3e50;
-  font-size: 1.2em;
   font-weight: bold;
   margin: 8px 0;
 }
 
-button {
+/* Botón de detalles del producto */
+.product-button {
   background-color: #007bff;
   color: white;
-  padding: 8px 16px;
+  padding: 6px 12px; /* Botón más pequeño */
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 0.8em; /* Reducir tamaño de fuente del botón */
   transition: background-color 0.3s;
+  margin-top: 8px;
+  text-decoration: none;
 }
 
-button:hover {
+.product-button:hover {
   background-color: #0056b3;
 }

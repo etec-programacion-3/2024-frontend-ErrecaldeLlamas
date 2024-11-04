@@ -37,15 +37,23 @@ export class AuthComponent {
     if (this.isLoginMode) {
       this.userService.login(this.email, this.password).subscribe(
         (response) => {
-          this.cookieService.set('authToken', response.token);
-          this.router.navigate(['/']);
+          // Aquí verificamos que la respuesta tenga el token
+          if (response && response.token) {
+            this.cookieService.set('authToken', response.token);
+            this.router.navigate(['/']); // Redirige al home después del login exitoso
+            this.errorMessage = ''; // Limpia el mensaje de error
+          } else {
+            // Si no hay token en la respuesta, muestra un mensaje de error
+            this.errorMessage = 'Usuario o contraseña incorrectos';
+          }
         },
         (error) => {
+          // Este bloque maneja el error de la petición
           this.errorMessage = 'Usuario o contraseña incorrectos';
-          this.successMessage = '';
         }
       );
     } else {
+      // Lógica de registro
       this.userService
         .createUser(this.username, this.email, this.password)
         .subscribe(

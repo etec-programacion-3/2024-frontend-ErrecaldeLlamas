@@ -1,8 +1,8 @@
 <div *ngIf="product; else noProduct">
   <h2>{{ product.name }}</h2>
   <img
-    [src]="product.imageUrl || 'assets/default-image.jpg'"
-    [alt]="product.name"
+    src="{{ product.imageUrl || 'assets/default-image.jpg' }}"
+    alt="{{ product.name }}"
     class="product-image"
   />
   <p><strong>Marca:</strong> {{ product.brand }}</p>
@@ -12,6 +12,12 @@
   <p><strong>Descripción:</strong> {{ product.description }}</p>
   <p><strong>Precio:</strong> {{ product.price | currency }}</p>
   <p><strong>Stock:</strong> {{ product.stock }}</p>
+
+  <!-- Botón de agregar al carrito -->
+  <button (click)="addToCart()">Agregar al Carrito</button>
+
+  <!-- Mensaje de éxito -->
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
 </div>
 
 <ng-template #noProduct>

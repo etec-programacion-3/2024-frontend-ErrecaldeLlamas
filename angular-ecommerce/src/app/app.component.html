@@ -1,6 +1,6 @@
 <header>
   <div class="header-top">
-    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <img src="../../src/app/assets/LogoEvoke.png" alt="Logo" class="logo" />
     <input
       type="text"
       placeholder="Buscar productos, marcas y más..."
@@ -11,6 +11,7 @@
       <a routerLink="/products" class="header-link">Productos</a>
       <!-- Enlace a productos -->
       <a routerLink="/cart" class="header-link">Carrito</a>
+      <a *ngIf="isAdmin" routerLink="/upload-product">Subir Productos</a>
       <a routerLink="/auth" class="header-link">Log in - Sign in</a>
     </div>
   </div>

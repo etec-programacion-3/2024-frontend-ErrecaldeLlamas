@@ -1,5 +1,3 @@
-// src/main.ts
-
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, Routes } from '@angular/router';
@@ -15,6 +13,9 @@ import { UserProfileComponent } from './app/components/user-profile/user-profile
 import { ProductListComponent } from './app/components/product-list/product-list.component';
 import { ProductDetailsComponent } from './app/components/product-details/product-details.component';
 
+// Componente del carrito
+import { CartComponent } from './app/components/cart/cart.component'; // Asegúrate de que la ruta es correcta
+
 // Define las rutas de la aplicación
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Ruta para la página de inicio
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent }, // Ruta para el perfil del usuario
   { path: 'products', component: ProductListComponent }, // Ruta para la lista de productos
   { path: 'products/:id', component: ProductDetailsComponent }, // Ruta para los detalles de un producto específico
+  { path: 'cart', component: CartComponent }, // Ruta para el carrito
   { path: '**', redirectTo: '' }, // Redirección para rutas no encontradas
 ];
 

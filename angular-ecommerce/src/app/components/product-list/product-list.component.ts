@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    // Aquí podrías cargar productos si el componente también necesita hacer llamadas API por sí mismo.
+    this.loadProducts();
   }
 
   // Función opcional para cargar productos si se usa como standalone
