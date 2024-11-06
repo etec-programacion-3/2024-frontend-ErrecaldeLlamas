@@ -14,7 +14,10 @@ import { ProductListComponent } from './app/components/product-list/product-list
 import { ProductDetailsComponent } from './app/components/product-details/product-details.component';
 
 // Componente del carrito
-import { CartComponent } from './app/components/cart/cart.component'; // Asegúrate de que la ruta es correcta
+import { CartComponent } from './app/components/cart/cart.component';
+
+// Componente de resultados de búsqueda
+import { SearchResultsComponent } from './app/components/search-results/search-results.component'; // Importa el componente de búsqueda
 
 // Define las rutas de la aplicación
 const routes: Routes = [
@@ -24,6 +27,7 @@ const routes: Routes = [
   { path: 'products', component: ProductListComponent }, // Ruta para la lista de productos
   { path: 'products/:id', component: ProductDetailsComponent }, // Ruta para los detalles de un producto específico
   { path: 'cart', component: CartComponent }, // Ruta para el carrito
+  { path: 'search', component: SearchResultsComponent }, // Ruta para los resultados de búsqueda
   { path: '**', redirectTo: '' }, // Redirección para rutas no encontradas
 ];
 

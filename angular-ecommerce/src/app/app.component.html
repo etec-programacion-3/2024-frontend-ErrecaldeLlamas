@@ -3,9 +3,11 @@
     <img src="../../src/app/assets/LogoEvoke.png" alt="Logo" class="logo" />
     <input
       type="text"
-      placeholder="Buscar productos, marcas y más..."
-      class="search-bar"
+      [(ngModel)]="searchQuery"
+      (keyup.enter)="onSearch()"
+      placeholder="Buscar productos"
     />
+    <button (click)="onSearch()">Buscar</button>
     <div class="header-links">
       <a routerLink="/home" class="header-link">Inicio</a>
       <a routerLink="/products" class="header-link">Productos</a>

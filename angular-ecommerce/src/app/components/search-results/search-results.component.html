@@ -1,0 +1,24 @@
+<div class="product-grid" *ngIf="products.length > 0; else noResults">
+  <div class="product-card" *ngFor="let product of products">
+    <img
+      [src]="product.imageUrl || 'assets/default-image.jpg'"
+      [alt]="product.name"
+      class="product-image"
+    />
+    <h3>{{ product.name }}</h3>
+    <p class="brand">
+      {{ product.brand || "Marca desconocida" }} -
+      {{ product.model || "Modelo desconocido" }}
+    </p>
+    <p class="details">
+      Talla: {{ product.size || "No especificado" }} | Color:
+      {{ product.color || "No especificado" }}
+    </p>
+    <p class="price">{{ product.price | currency }}</p>
+    <button [routerLink]="['/products', product.id]">Ver Detalles</button>
+  </div>
+</div>
+
+<ng-template #noResults>
+  <p>No se encontraron resultados para "{{ searchQuery }}"</p>
+</ng-template>

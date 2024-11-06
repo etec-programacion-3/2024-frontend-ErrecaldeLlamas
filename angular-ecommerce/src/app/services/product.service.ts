@@ -18,4 +18,10 @@ export class ProductService {
   getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
+
+  searchProducts(query: string): Observable<Product[]> {
+    const searchUrl = `${this.apiUrl}?q=${encodeURIComponent(query)}`;
+    console.log('Sending request to:', searchUrl); // Verificar la URL
+    return this.http.get<Product[]>(searchUrl);
+  }
 }
