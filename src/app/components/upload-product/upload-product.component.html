@@ -1,0 +1,114 @@
+<h2>Subir Producto</h2>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Nombre:</label>
+    <input id="name" formControlName="name" />
+    <div
+      *ngIf="
+        productForm.get('name')?.invalid && productForm.get('name')?.touched
+      "
+    >
+      Nombre es requerido.
+    </div>
+  </div>
+
+  <div>
+    <label for="brand">Marca:</label>
+    <input id="brand" formControlName="brand" />
+    <div
+      *ngIf="
+        productForm.get('brand')?.invalid && productForm.get('brand')?.touched
+      "
+    >
+      Marca es requerida.
+    </div>
+  </div>
+
+  <div>
+    <label for="model">Modelo:</label>
+    <input id="model" formControlName="model" />
+    <div
+      *ngIf="
+        productForm.get('model')?.invalid && productForm.get('model')?.touched
+      "
+    >
+      Modelo es requerido.
+    </div>
+  </div>
+
+  <div>
+    <label for="price">Precio:</label>
+    <input id="price" type="number" formControlName="price" />
+    <div
+      *ngIf="
+        productForm.get('price')?.invalid && productForm.get('price')?.touched
+      "
+    >
+      Precio es requerido y debe ser mayor que 0.
+    </div>
+  </div>
+
+  <div>
+    <label for="size">Tamaño:</label>
+    <input id="size" type="number" formControlName="size" />
+    <div
+      *ngIf="
+        productForm.get('size')?.invalid && productForm.get('size')?.touched
+      "
+    >
+      Tamaño es requerido.
+    </div>
+  </div>
+
+  <div>
+    <label for="color">Color:</label>
+    <input id="color" formControlName="color" />
+    <div
+      *ngIf="
+        productForm.get('color')?.invalid && productForm.get('color')?.touched
+      "
+    >
+      Color es requerido.
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Descripción:</label>
+    <textarea id="description" formControlName="description"></textarea>
+    <div
+      *ngIf="
+        productForm.get('description')?.invalid &&
+        productForm.get('description')?.touched
+      "
+    >
+      Descripción es requerida.
+    </div>
+  </div>
+
+  <div>
+    <label for="stock">Stock:</label>
+    <input id="stock" type="number" formControlName="stock" />
+    <div
+      *ngIf="
+        productForm.get('stock')?.invalid && productForm.get('stock')?.touched
+      "
+    >
+      Stock es requerido y debe ser mayor que 0.
+    </div>
+  </div>
+
+  <div>
+    <label for="imageUrl">URL de Imagen:</label>
+    <input id="imageUrl" formControlName="imageUrl" />
+    <div
+      *ngIf="
+        productForm.get('imageUrl')?.invalid &&
+        productForm.get('imageUrl')?.touched
+      "
+    >
+      URL de Imagen es requerida.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="productForm.invalid">Subir Producto</button>
+</form>

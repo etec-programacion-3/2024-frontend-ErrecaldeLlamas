@@ -1,39 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { ProductService } from '../../services/product.service';
-import { CommonModule } from '@angular/common';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
-export class HomeComponent implements OnInit {
-  products: any[] = [];
-  isLoggedIn = false;
+export class HomeComponent {
+  currentSlide = 2;
+  slides = [0, 1, 2]; // índices de las diapositivas
 
-  constructor(
-    private cookieService: CookieService,
-    private productService: ProductService
-  ) {
-    // Verifica si el usuario está logueado al inicializar el componente
-    this.isLoggedIn = this.cookieService.check('authToken');
+  nextSlide() {
+    this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+    this.updateSlides();
   }
 
-  ngOnInit(): void {
-    this.loadProducts();
+  prevSlide() {
+    this.currentSlide =
+      (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+    this.updateSlides();
   }
 
-  loadProducts(): void {
-    this.productService.getProducts().subscribe(
-      (data) => {
-        this.products = data;
-      },
-      (error) => {
-        console.error('Error al cargar los productos:', error);
+  updateSlides() {
+    const slides = document.querySelectorAll(".slide");
+    slides.forEach((slide, index) => {
+      slide.classList.remove("active");
+      if (index === this.currentSlide) {
+        slide.classList.add("active");
       }
-    );
+    });
+  }
+
+  constructor() {
+    this.updateSlides(); // inicializa la primera diapositiva
   }
 }

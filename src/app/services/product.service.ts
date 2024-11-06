@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Product } from '../models/product.model';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Product } from "../models/product.model";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3000/api/products';
+  private apiUrl = "http://localhost:3000/api/products";
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +21,12 @@ export class ProductService {
 
   searchProducts(query: string): Observable<Product[]> {
     const searchUrl = `${this.apiUrl}?q=${encodeURIComponent(query)}`;
-    console.log('Sending request to:', searchUrl); // Verificar la URL
+    console.log("Sending request to:", searchUrl); // Verificar la URL
     return this.http.get<Product[]>(searchUrl);
+  }
+
+  uploadProduct(productData: any): Observable<any> {
+    const headers = new HttpHeaders({ "Content-Type": "application/json" });
+    return this.http.post<any>(this.apiUrl, productData, { headers });
   }
 }

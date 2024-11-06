@@ -1,136 +1,135 @@
-/* Header en tonos grises */
+/* Header en tonos claros */
 header {
-  background-color: #e0e0e0;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* Fondo blanco para un aspecto limpio */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
+/* Estilo de la parte superior del header */
 .header-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1em 2em;
+  padding: 10px 20px; /* Espaciado adecuado */
 }
 
+/* Estilo del logo */
 .logo {
-  height: 40px;
+  height: 60px; /* Tamaño del logo */
 }
 
+/* Barra de búsqueda */
 .search-bar {
-  flex-grow: 1;
-  padding: 0.8em 1em;
-  margin: 0 1em;
-  border-radius: 24px;
-  border: 1px solid #bdbdbd;
+  flex-grow: 1; /* Permite que la barra ocupe el espacio disponible */
+  padding: 10px 15px; /* Espaciado interno adecuado */
+  margin: 0 1em; /* Espaciado lateral */
+  border: 1px solid #bdbdbd; /* Borde claro */
+  border-radius: 25px; /* Bordes redondeados */
   font-size: 1em;
-  background-color: #ffffff;
-  color: #333;
+  background-color: #f9f9f9; /* Fondo ligeramente gris */
+  color: #333; /* Color de texto oscuro */
+  transition: border-color 0.3s; /* Transición suave en el borde */
 }
 
-.header-links a {
-  color: #333;
-  text-decoration: none;
-  margin-left: 1.2em;
-  font-size: 0.9em;
-  font-weight: bold;
+.search-bar:focus {
+  border-color: #007bff; /* Cambia el borde al enfocar */
+  outline: none; /* Sin borde de enfoque por defecto */
 }
 
-.header-links a:hover {
-  color: #666;
+/* Botón de búsqueda */
+.search-button {
+  padding: 10px 15px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 25px; /* Bordes redondeados */
+  background-color: #007bff; /* Color de fondo azul */
+  color: #fff; /* Color de texto blanco */
+  cursor: pointer; /* Cambia el cursor al pasar */
+  transition: background-color 0.3s; /* Transición suave */
+  font-size: 1em; /* Tamaño de fuente */
+  margin-left: 10px; /* Espaciado lateral */
 }
 
-/* Barra de navegación en escala de grises */
-.categories-nav {
+.search-button:hover {
+  background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
+
+/* Enlaces del header */
+.header-links {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  background-color: #e0e0e0;
-  padding: 0.8em 0;
+  align-items: center; /* Alineación vertical centrada */
+  gap: 15px; /* Espaciado entre los enlaces */
 }
 
-.category-link {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0.5em 1em;
+.header-link {
+  color: #333; /* Color de texto oscuro */
+  text-decoration: none; /* Sin subrayado */
+  font-size: 0.9em; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  transition: color 0.3s; /* Transición suave en el color */
 }
 
-.category-link:hover {
-  background-color: #bdbdbd;
-  color: #121212;
+.header-link:hover {
+  color: #007bff; /* Cambia el color al pasar el mouse */
 }
 
-/* Banner en escala de grises */
-.banner {
-  text-align: center;
-  padding: 3em 1em;
-  background-color: #e0e0e0;
-  color: #333;
-  margin: 1em 2em;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+/* Menú desplegable */
+.account-panel {
+  background-color: #ffffff; /* Fondo blanco */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }
 
-.banner h2 {
-  font-size: 2em;
-  margin-bottom: 0.3em;
-  color: #555;
-}
-
-.banner p {
-  font-size: 1.2em;
-  color: #777;
-}
-
-/* Footer en tonos grises */
+/* Footer en tonos oscuros */
 footer {
   background-color: #333;
   color: #fff;
   text-align: center;
   padding: 1.2em;
   font-size: 0.9em;
-  box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
   margin-top: auto;
 }
 
-.header-top {
+/* Asegúrate de que el body y html ocupen toda la altura */
+html,
+body {
+  height: 100%;
+  margin: 0; /* Elimina márgenes predeterminados */
+}
+
+/* Establece un contenedor flexible para la página */
+body {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
+  flex-direction: column; /* Organiza los hijos en columna */
 }
 
-.account-container {
-  position: relative;
-  display: inline-block;
+/* El main ocupa el espacio disponible */
+main {
+  flex: 1; /* Toma el espacio restante entre el header y el footer */
 }
 
-.account-panel {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 200px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+/* Footer en tonos oscuros */
+footer {
+  background-color: #2e2721; /* Fondo oscuro */
+  color: #fff; /* Color de texto blanco */
+  text-align: center;
+  padding: 20px; /* Espaciado del footer */
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Sombra superior */
+}
+
+/* Ajustes opcionales para el footer */
+.footer-content {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-around; /* Distribución uniforme */
+  align-items: flex-start; /* Alineación vertical */
 }
 
-.account-panel button {
-  margin-top: 10px;
-  width: 100%;
-  background-color: #f5f5f5;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
+.footer p {
+  margin: 0;
 }
 
-.account-panel button:hover {
-  background-color: #ddd;
+/* Estilo del contenido principal */
+main {
+  padding: 20px; /* Espaciado del contenido */
 }

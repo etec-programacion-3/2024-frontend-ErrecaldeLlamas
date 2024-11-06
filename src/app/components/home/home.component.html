@@ -1,24 +1,18 @@
-<div class="home-container">
-  <h1>Bienvenido a nuestra tienda</h1>
-  <p *ngIf="isLoggedIn">¡Estamos felices de tenerte de vuelta!</p>
-  <p *ngIf="!isLoggedIn">
-    Por favor, inicia sesión para una mejor experiencia.
-  </p>
+<main>
+  <div class="slider">
+    <img src="slider1.webp" class="slide" alt="Promo 1" />
+    <img src="slider2.jpg" class="slide" alt="Promo 2" />
+    <img src="slider4.jpeg" class="slide" alt="Promo 3" />
 
-  <div class="product-grid">
-    <div *ngFor="let product of products" class="product-card">
-      <img
-        [src]="product.imageUrl || 'assets/default-product.jpg'"
-        alt="{{ product.name }}"
-        class="product-image"
-      />
-      <div class="product-info">
-        <h3>{{ product.name }}</h3>
-        <p class="product-price">{{ product.price | currency }}</p>
-        <button *ngIf="isLoggedIn" class="add-to-cart-btn">
-          Agregar al carrito
-        </button>
-      </div>
+    <div class="controls">
+      <button class="prev" (click)="prevSlide()">&#10094;</button>
+      <button class="next" (click)="nextSlide()">&#10095;</button>
     </div>
   </div>
-</div>
+
+  <div class="promo">
+    <h2>¡Gran Venta de Zapatillas!</h2>
+    <p>Hasta un 40% de descuento en modelos seleccionados.</p>
+    <a href="#" class="btn">Compra Ahora</a>
+  </div>
+</main>
