@@ -1,0 +1,45 @@
+<header>
+  <div class="header-top">
+    <img src="../../src/app/assets/LogoEvoke.png" alt="Logo" class="logo" />
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Buscar productos, marcas y más..."
+      class="search-bar"
+    />
+    <button (click)="onSearch()">Buscar</button>
+    <div class="header-links">
+      <a routerLink="/home" class="header-link">Inicio</a>
+      <a routerLink="/products" class="header-link">Productos</a>
+      <a *ngIf="isLoggedIn" routerLink="/cart" class="header-link">Carrito</a>
+      <a *ngIf="isAdmin" routerLink="/upload-product">Subir Productos</a>
+
+      <!-- Enlace condicional para Cuenta o Log in - Sign in -->
+      <div class="account-container" (mouseleave)="closeAccountPanel()">
+        <a
+          *ngIf="isLoggedIn; else loginLink"
+          (click)="toggleAccountPanel()"
+          class="header-link"
+          >Cuenta</a
+        >
+        <ng-template #loginLink>
+          <a routerLink="/auth" class="header-link">Log in - Sign in</a>
+        </ng-template>
+
+        <!-- Menú desplegable de cuenta -->
+        <div class="account-panel" *ngIf="isAccountPanelOpen">
+          <app-user-profile></app-user-profile>
+          <button (click)="logout()">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <p>&copy; 2024 Angular Ecommerce. Todos los derechos reservados.</p>
+</footer>
