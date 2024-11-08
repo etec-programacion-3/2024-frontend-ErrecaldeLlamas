@@ -116,7 +116,7 @@ export class UserService {
 
   // Verificar si el usuario es administrador
   isAdmin(): boolean {
-    return this.getUserRole() === 'admin';
+    return this.getUserRole() === "admin";
   }
 
   // Obtener el cartId del usuario actual
