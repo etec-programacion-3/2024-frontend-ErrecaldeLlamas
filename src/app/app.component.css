@@ -114,59 +114,45 @@ footer {
   background-color: #2e2721; /* Fondo oscuro */
   color: #fff; /* Color de texto blanco */
   text-align: center;
-  padding: 20px; /* Espaciado del footer */
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Sombra superior */
+}
+
+/* Footer en tonos oscuros */
+footer {
+  background-color: #2e2721;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Ajustes para el footer */
 .footer-content {
   display: flex;
-  justify-content: space-around; /* Distribución uniforme */
-  align-items: center; /* Alineación vertical centrada */
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan */
-  gap: 20px; /* Espacio entre las secciones */
-}
-
-/* Limitar el ancho de las secciones del footer */
-.footer-left,
-.footer-center,
-.footer-right {
-  display: flex;
-  flex-direction: column; /* Coloca los elementos en columna dentro de cada sección */
-  align-items: center; /* Centra los elementos en cada div */
-  max-width: 250px; /* Limita el ancho */
+  justify-content: space-between; /* Distribución uniforme con menos espacio */
+  align-items: center;
+  padding: 10px 0; /* Espacio vertical */
   text-align: center;
+  flex-wrap: wrap;
 }
 
-/* Añadir espacio vertical entre los elementos */
-.footer-left p,
-.footer-center h1,
-.footer-center p,
-.footer-right p {
-  margin: 8px 0; /* Espaciado vertical entre elementos */
-}
-
-/* Ajustes en pantallas pequeñas */
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column; /* Coloca los elementos en columnas en pantallas pequeñas */
-  }
-  .footer-left, .footer-center, .footer-right {
-    width: 100%; /* Los elementos ocupan el 100% del ancho en pantallas pequeñas */
-  }
+.footer-left,
+.footer-right,
+.footer-center {
+  flex: 1; /* Cada sección ocupa un tercio del espacio disponible */
+  min-width: 400px;
 }
 
 .footer-title {
-  font-size: 4.5em; /* Tamaño del nombre de la marca */
-  position: relative; /* Necesario para posicionar el símbolo */
+  font-size: 4.5em;
+  position: relative;
 }
 
 .registered {
   font-size: 0.6em; /* Hace el símbolo de marca registrada más pequeño */
   position: absolute;
   top: -0.3em; /* Ajusta la posición vertical del símbolo */
-  left: 6em; /* Ajusta la posición horizontal del símbolo */
-  color: #fff; /* Color del símbolo, ajústalo según el fondo */
+  left: 8.3em; /* Ajusta la posición horizontal del símbolo */
+  color: #fff;
 }
 
 
