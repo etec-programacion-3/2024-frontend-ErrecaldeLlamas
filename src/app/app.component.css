@@ -1,6 +1,6 @@
 /* Header en tonos claros */
 header {
-  background-color: #ffffff; /* Fondo blanco para un aspecto limpio */
+  background-color: #dfe0e0; /* Fondo blanco para un aspecto limpio */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   position: sticky;
   top: 0;
@@ -155,8 +155,6 @@ footer {
   color: #fff;
 }
 
-
-
 .footer p {
   margin: 0;
 }
@@ -167,8 +165,4 @@ footer {
   margin: 0 5px; /* Espacio entre los íconos */
 }
 
-
 /* Estilo del contenido principal */
-main {
-  padding: 20px; /* Espaciado del contenido */
-}

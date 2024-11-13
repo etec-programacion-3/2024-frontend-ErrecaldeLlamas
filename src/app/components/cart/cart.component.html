@@ -1,27 +1,36 @@
-<div *ngIf="cartItems.length > 0; else emptyCart">
+<!-- cart.component.html -->
+<div *ngIf="cartItems.length > 0; else emptyCart" class="cart-container">
   <h2>Tu Carrito</h2>
   <div *ngFor="let item of cartItems" class="cart-item">
+    <!-- Imagen del producto -->
     <img
       [src]="item.imageUrl || 'assets/default-image.jpg'"
       alt="{{ item.name }}"
       class="product-image"
     />
-    <div>
-      <p>
-        <strong>{{ item.name }}</strong>
-      </p>
-      <p>Precio: {{ item.price | currency }}</p>
-      <label for="quantity-{{ item.id }}">Cantidad:</label>
-      <input
-        id="quantity-{{ item.id }}"
-        type="number"
-        [(ngModel)]="item.quantity"
-        (change)="updateQuantity(item.id, item.quantity)"
-        min="1"
-      />
+
+    <!-- Información del producto -->
+    <div class="product-info">
+      <p class="product-name">{{ item.name }}</p>
+      <p class="product-price">Precio: {{ item.price | currency }}</p>
+      <div class="quantity-container">
+        <label for="quantity-{{ item.id }}">Cantidad:</label>
+        <input
+          id="quantity-{{ item.id }}"
+          type="number"
+          [(ngModel)]="item.quantity"
+          (change)="updateQuantity(item.id, item.quantity)"
+          min="1"
+          class="quantity-input"
+        />
+      </div>
     </div>
   </div>
-  <h3>Total: {{ totalPrice | currency }}</h3>
+
+  <!-- Total del carrito -->
+  <div class="cart-total">
+    <h3>Total: {{ totalPrice | currency }}</h3>
+  </div>
 </div>
 
 <ng-template #emptyCart>

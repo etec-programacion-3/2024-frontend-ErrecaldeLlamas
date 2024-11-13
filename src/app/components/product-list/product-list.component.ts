@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product.model';
+import { Component, Input, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { ProductService } from "../../services/product.service";
+import { Product } from "../../models/product.model";
 
 @Component({
-  selector: 'app-product-list',
+  selector: "app-product-list",
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css'],
+  templateUrl: "./product-list.component.html",
+  styleUrls: ["./product-list.component.css"],
 })
 export class ProductListComponent implements OnInit {
   @Input() products: Product[] = []; // Define products como un @Input
@@ -27,7 +27,7 @@ export class ProductListComponent implements OnInit {
         this.products = data;
       },
       (error) => {
-        console.error('Error al cargar productos:', error);
+        console.error("Error al cargar productos:", error);
       }
     );
   }

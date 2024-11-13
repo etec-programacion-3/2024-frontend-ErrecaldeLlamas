@@ -1,8 +1,16 @@
+<div class="banner">
+  <img
+    src="zapatillas-banner.png"
+    alt="Banner de zapatillas"
+    class="banner-image"
+  />
+</div>
+
 <div class="product-grid">
   <div class="product-card" *ngFor="let product of products">
     <img
-      src="product.imageUrl || 'assets/default-image.jpg'"
-      alt="product.name"
+      [src]="product.imageUrl || 'assets/default-image.jpg'"
+      alt="{{ product.name }}"
       class="product-image"
     />
     <h3>{{ product.name }}</h3>
@@ -11,7 +19,8 @@
       Talla: {{ product.size }} | Color: {{ product.color }}
     </p>
     <p class="price">{{ product.price | currency }}</p>
-    <button [routerLink]="['/products', product.id]">Ver Detalles</button>
-    <!-- Navega a los detalles -->
+    <button [routerLink]="['/products', product.id]" class="product-button">
+      Ver Detalles
+    </button>
   </div>
 </div>

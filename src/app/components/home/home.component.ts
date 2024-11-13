@@ -1,36 +1,28 @@
-import { Component } from "@angular/core";
+// home.component.ts
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ProductService } from "../../services/product.service";
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-home",
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
 })
-export class HomeComponent {
-  currentSlide = 2;
-  slides = [0, 1, 2]; // índices de las diapositivas
+export class HomeComponent implements OnInit {
+  products: any[] = [];
 
-  nextSlide() {
-    this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-    this.updateSlides();
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.loadProducts();
   }
 
-  prevSlide() {
-    this.currentSlide =
-      (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-    this.updateSlides();
-  }
-
-  updateSlides() {
-    const slides = document.querySelectorAll(".slide");
-    slides.forEach((slide, index) => {
-      slide.classList.remove("active");
-      if (index === this.currentSlide) {
-        slide.classList.add("active");
-      }
+  loadProducts(): void {
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
     });
-  }
-
-  constructor() {
-    this.updateSlides(); // inicializa la primera diapositiva
   }
 }
