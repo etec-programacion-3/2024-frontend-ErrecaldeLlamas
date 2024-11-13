@@ -1,3 +1,115 @@
-.banner{
-  background-image: url();
+/* Estilo de la cuadrícula de productos */
+.banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Separación entre el banner y los productos */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
+}
+
+.banner-image {
+  width: 100%;
+  max-height: 400px; /* Controla la altura máxima de la imagen para que no sea muy alta */
+  object-fit: cover; /* Mantiene la relación de aspecto */
+  object-position: bottom; /* Muestra la parte inferior de la imagen */
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  ); /* Cartas cuadradas */
+  gap: 20px;
+  padding: 16px;
+}
+
+/* Tarjeta de cada producto */
+.product-card {
+  background-color: #f6f6f6;
+  border-radius: 0; /* Sin bordes redondeados para un estilo formal */
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra exterior */
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px;
+  height: 380px; /* Tamaño fijo para asegurar forma cuadrada */
+  box-sizing: border-box;
+}
+
+.product-card:hover {
+  transform: translateY(-3px); /* Elevación ligera */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el mouse */
+}
+
+/* Imagen del producto */
+.product-image {
+  width: 100%;
+  height: 150px; /* Altura ajustada para que no ocupe demasiado espacio */
+  object-fit: contain; /* Muestra la imagen completa dentro del cuadro */
+  margin-bottom: 12px;
+  background-color: #f5f5f5; /* Fondo claro para que la imagen destaque */
+  padding: 8px; /* Espacio interno para que la imagen no toque los bordes */
+}
+
+/* Estilos de detalles del producto */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.product-name {
+  font-size: 1em;
+  color: #333333;
+  font-weight: 600;
+  margin: 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.brand,
+.details {
+  font-size: 0.85em;
+  color: #555555;
+  margin: 4px 0;
+}
+
+.price {
+  font-size: 1.1em;
+  color: #333333;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Botón de detalles del producto */
+.product-button {
+  background-color: #e0e0e0; /* Color claro */
+  color: #333333;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 0; /* Sin borde redondeado para estilo cuadrado */
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: bold;
+  transition: box-shadow 0.2s, transform 0.2s;
+  width: 100%; /* Ancho completo para adaptarse a la carta */
+  margin-top: auto; /* Empuja el botón hacia el final de la tarjeta */
+  box-sizing: border-box;
+}
+
+.product-button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil al hacer hover */
+}
+
+.product-button:active {
+  transform: translateY(2px); /* Efecto de presionado */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más intensa al presionar */
 }

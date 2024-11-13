@@ -1,6 +1,8 @@
 <header>
   <div class="header-top">
-    <img src="LogoEvoke.png" alt="Logo" class="logo" />
+    <a routerLink="/home"
+      ><img src="LogoEvoke.png" alt="Logo" class="logo"
+    /></a>
     <div class="search-container">
       <input
         type="text"
@@ -14,7 +16,9 @@
       <a routerLink="/home" class="header-link">Inicio</a>
       <a routerLink="/products" class="header-link">Productos</a>
       <a *ngIf="isLoggedIn" routerLink="/cart" class="header-link">Carrito</a>
-      <a *ngIf="isAdmin" routerLink="/upload-product">Subir Productos</a>
+      <a *ngIf="isAdmin" routerLink="/upload-product" class="header-link"
+        >Subir Productos</a
+      >
 
       <div class="account-container" (mouseleave)="closeAccountPanel()">
         <a
@@ -54,32 +58,16 @@
       <p>Seguinos en nuestras redes</p>
       <div class="social-buttons">
         <a href="https://www.instagram.com/evoke.nf/">
-          <img
-            src="instagram-icon.png"
-            alt="Instagram"
-            class="social-icon"
-          />
+          <img src="instagram-icon.png" alt="Instagram" class="social-icon" />
         </a>
         <a href="https://www.facebook.com/">
-          <img
-            src="facebook-icon.png"
-            alt="Facebook"
-            class="social-icon"
-          />
+          <img src="facebook-icon.png" alt="Facebook" class="social-icon" />
         </a>
         <a href="https://www.tiktok.com/@zephyr.joyas?lang=es">
-          <img
-            src="tiktok-icon.png"
-            alt="TikTok"
-            class="social-icon"
-          />
+          <img src="tiktok-icon.png" alt="TikTok" class="social-icon" />
         </a>
         <a href="https://www.youtube.com/">
-          <img
-            src="youtube-icon.png"
-            alt="YouTube"
-            class="social-icon"
-          />
+          <img src="youtube-icon.png" alt="YouTube" class="social-icon" />
         </a>
       </div>
     </div>
