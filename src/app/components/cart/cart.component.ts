@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { CartService } from '../../services/cart.service';
-import { ProductService } from '../../services/product.service'; // Importa el servicio de productos
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { RouterModule } from "@angular/router"; // Importa RouterModule
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { CartService } from "../../services/cart.service";
+import { ProductService } from "../../services/product.service";
 
 @Component({
-  selector: 'app-cart',
+  selector: "app-cart",
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
+  imports: [CommonModule, FormsModule, RouterModule], // Asegúrate de incluir RouterModule aquí
+  templateUrl: "./cart.component.html",
+  styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = []; // Para almacenar los productos completos con cantidad
@@ -49,7 +50,7 @@ export class CartComponent implements OnInit {
         });
       },
       (error) => {
-        console.error('Error al cargar el carrito:', error);
+        console.error("Error al cargar el carrito:", error);
       }
     );
   }

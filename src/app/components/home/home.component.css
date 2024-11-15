@@ -1,4 +1,4 @@
-/* Estilo de la cuadrícula de productos */
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600,700,800, 800i, 900&display=swap");
 .banner {
   width: 100%;
   display: flex;
@@ -14,102 +14,185 @@
   object-position: bottom; /* Muestra la parte inferior de la imagen */
 }
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(220px, 1fr)
-  ); /* Cartas cuadradas */
-  gap: 20px;
-  padding: 16px;
-}
-
-/* Tarjeta de cada producto */
-.product-card {
-  background-color: #f6f6f6;
-  border-radius: 0; /* Sin bordes redondeados para un estilo formal */
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra exterior */
-  transition: transform 0.3s, box-shadow 0.3s;
+.container {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 16px;
-  height: 380px; /* Tamaño fijo para asegurar forma cuadrada */
-  box-sizing: border-box;
 }
 
-.product-card:hover {
-  transform: translateY(-3px); /* Elevación ligera */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el mouse */
+.container .card {
+  position: relative;
+  width: 320px;
+  height: 450px;
+  background: #232323;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Imagen del producto */
-.product-image {
+.container .card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 150px; /* Altura ajustada para que no ocupe demasiado espacio */
-  object-fit: contain; /* Muestra la imagen completa dentro del cuadro */
-  margin-bottom: 12px;
-  background-color: #f5f5f5; /* Fondo claro para que la imagen destaque */
-  padding: 8px; /* Espacio interno para que la imagen no toque los bordes */
+  height: 100%;
+  background: #f6f6f6;
+  clip-path: circle(150px at 80% 20%);
+  transition: 0.5s ease-in-out;
 }
 
-/* Estilos de detalles del producto */
-.product-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 8px;
-  flex-grow: 1;
-  overflow: hidden;
+.container .card:hover:before {
+  clip-path: circle(300px at 80% -20%);
 }
 
-.product-name {
-  font-size: 1em;
-  color: #333333;
+.container .card:after {
+  content: "Nike";
+  position: absolute;
+  top: 30%;
+  left: -20%;
+  font-size: 12em;
+  font-weight: 800;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.04);
+}
+
+.container .card .imgBx {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
+}
+
+.container .card:hover .imgBx {
+  top: 0%;
+  transform: translateY(-25%);
+  /* bug  */
+}
+
+.container .card .imgBx img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(20deg);
+  width: 270px;
+}
+
+.container .card .contentBx {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  transition: 1s;
+  z-index: 90;
+}
+
+.container .card:hover .contentBx {
+  height: 210px;
+}
+
+.container .card .contentBx h2 {
+  position: relative;
   font-weight: 600;
-  margin: 8px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  letter-spacing: 1px;
+  color: #fff;
 }
 
-.brand,
-.details {
-  font-size: 0.85em;
-  color: #555555;
-  margin: 4px 0;
+.container .card .contentBx .size,
+.container .card .contentBx .color {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden;
 }
 
-.price {
-  font-size: 1.1em;
-  color: #333333;
-  font-weight: bold;
-  margin: 10px 0;
+.container .card:hover .contentBx .size {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.5s;
 }
 
-/* Botón de detalles del producto */
-.product-button {
-  background-color: #e0e0e0; /* Color claro */
-  color: #333333;
-  padding: 10px;
-  border: 1px solid #dcdcdc;
-  border-radius: 0; /* Sin borde redondeado para estilo cuadrado */
+.container .card:hover .contentBx .color {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.6s;
+}
+
+.container .card .contentBx .size h3,
+.container .card .contentBx .color h3 {
+  color: white;
+  font-weight: 300;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-right: 10px;
+}
+
+.container .card .contentBx .size span {
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  line-height: 26px;
+  font-size: 14px;
+  display: inline-block;
+  color: #111;
+  background: #fff;
+  margin: 0 5px;
+  transition: 0.5s;
+  color: #111;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 0.85em;
-  font-weight: bold;
-  transition: box-shadow 0.2s, transform 0.2s;
-  width: 100%; /* Ancho completo para adaptarse a la carta */
-  margin-top: auto; /* Empuja el botón hacia el final de la tarjeta */
-  box-sizing: border-box;
 }
 
-.product-button:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil al hacer hover */
+.container .card .contentBx .size span:hover {
+  /* other bug */
+  background: #b90000;
 }
 
-.product-button:active {
-  transform: translateY(2px); /* Efecto de presionado */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más intensa al presionar */
+.container .card .contentBx .color span {
+  width: 20px;
+  height: 20px;
+  background: #ff0;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.container .card .contentBx .color span:nth-child(2) {
+  background: #1bbfe9;
+}
+
+.container .card .contentBx .color span:nth-child(3) {
+  background: #1b2fe9;
+}
+
+.container .card .contentBx .color span:nth-child(4) {
+  background: #080481;
+}
+
+.container .card .contentBx a {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #fff;
+  border-radius: 4px;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #111;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: 0.5s;
+}
+
+.container .card:hover .contentBx a {
+  opacity: 1;
+  transform: translateY(0px);
+  transition-delay: 0.7s;
 }

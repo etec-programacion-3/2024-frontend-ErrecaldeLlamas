@@ -1,4 +1,3 @@
-<!-- home.component.html -->
 <div class="banner">
   <img
     src="zapatillas-banner.png"
@@ -7,18 +6,33 @@
   />
 </div>
 
-<div class="product-grid">
-  <div class="product-card" *ngFor="let product of products">
-    <img
-      [src]="product.imageUrl || 'assets/default-image.jpg'"
-      alt="{{ product.name }}"
-      class="product-image"
-    />
-    <h3>{{ product.name }}</h3>
-    <p class="brand">{{ product.brand }} - {{ product.model }}</p>
-    <p class="price">{{ product.price | currency }}</p>
-    <button [routerLink]="['/products', product.id]" class="product-button">
-      Ver Detalles
-    </button>
+<div class="container">
+  <div class="card" *ngFor="let product of products">
+    <div class="imgBx">
+      <img
+        [src]="product.imageUrl || 'assets/default-image.jpg'"
+        alt="{{ product.name }}"
+      />
+    </div>
+
+    <div class="contentBx">
+      <h2>{{ product.name }}</h2>
+
+      <div class="size">
+        <h3>Size:</h3>
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+        <span>10</span>
+      </div>
+
+      <div class="color">
+        <h3>Color:</h3>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <a [routerLink]="['/products', product.id]">Ver Detalles</a>
+    </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 /* Header en tonos claros */
 header {
-  background-color: #dfe0e0; /* Fondo blanco para un aspecto limpio */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  background-color: #f6f6f6; /* Fondo blanco para un aspecto limpio */
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3); /* Sombra suave */
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -12,7 +12,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px; /* Espaciado adecuado */
+  padding: 10px 10px; /* Espaciado adecuado */
 }
 
 /* Estilo del logo */
@@ -20,15 +20,19 @@ header {
   height: 60px; /* Tamaño del logo */
 }
 
+.search-container {
+  width: 500px;
+}
+
 /* Barra de búsqueda */
 .search-bar {
-  flex-grow: 1; /* Permite que la barra ocupe el espacio disponible */
+  width: 40vh;
   padding: 10px 15px; /* Espaciado interno adecuado */
   margin: 0 1em; /* Espaciado lateral */
-  border: 1px solid #bdbdbd; /* Borde claro */
-  border-radius: 25px; /* Bordes redondeados */
+  border: 0.5px solid #000; /* Borde claro */
+  border-radius: 0px; /* Bordes redondeados */
   font-size: 1em;
-  background-color: #f9f9f9; /* Fondo ligeramente gris */
+  background-color: #f6f6f6; /* Fondo ligeramente gris */
   color: #333; /* Color de texto oscuro */
   transition: border-color 0.3s; /* Transición suave en el borde */
 }
@@ -42,13 +46,13 @@ header {
 .search-button {
   padding: 10px 15px; /* Espaciado interno */
   border: none; /* Sin borde */
-  border-radius: 25px; /* Bordes redondeados */
-  background-color: #007bff; /* Color de fondo azul */
+  border-radius: 2px; /* Bordes redondeados */
+  background-color: #738090; /* Color de fondo azul */
   color: #fff; /* Color de texto blanco */
   cursor: pointer; /* Cambia el cursor al pasar */
   transition: background-color 0.3s; /* Transición suave */
   font-size: 1em; /* Tamaño de fuente */
-  margin-left: 10px; /* Espaciado lateral */
+  margin-left: 20px; /* Espaciado lateral */
 }
 
 .search-button:hover {

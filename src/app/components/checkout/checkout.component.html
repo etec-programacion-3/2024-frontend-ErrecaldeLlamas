@@ -1,0 +1,16 @@
+<div *ngIf="cartItems.length > 0; else emptyCart">
+  <h2>Resumen de Compra</h2>
+  <div *ngFor="let item of cartItems" class="checkout-item">
+    <h3>{{ item.name }}</h3>
+    <p>Precio: {{ item.price | currency }}</p>
+    <p>Cantidad: {{ item.quantity }}</p>
+  </div>
+  <h3>Total: {{ totalPrice | currency }}</h3>
+  <button (click)="createPreference()">Pagar con Mercado Pago</button>
+  <div id="wallet_container"></div>
+  <!-- Contenedor para el botón de Mercado Pago -->
+</div>
+
+<ng-template #emptyCart>
+  <p>No hay productos en el carrito.</p>
+</ng-template>

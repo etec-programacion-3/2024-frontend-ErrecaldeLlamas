@@ -12,7 +12,8 @@ import { ProductListComponent } from "./app/components/product-list/product-list
 import { ProductDetailsComponent } from "./app/components/product-details/product-details.component";
 import { CartComponent } from "./app/components/cart/cart.component";
 import { SearchResultsComponent } from "./app/components/search-results/search-results.component";
-import { UploadProductComponent } from "./app/components/upload-product/upload-product.component"; // Importa el nuevo componente
+import { UploadProductComponent } from "./app/components/upload-product/upload-product.component";
+import { CheckoutComponent } from "./app/components/checkout/checkout.component"; // Importa el componente de checkout
 
 // Define las rutas de la aplicación
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: "cart", component: CartComponent }, // Ruta para el carrito
   { path: "search", component: SearchResultsComponent }, // Ruta para los resultados de búsqueda
   { path: "upload-product", component: UploadProductComponent }, // Ruta para subir productos
+  { path: "checkout", component: CheckoutComponent }, // Ruta para el checkout
   { path: "**", redirectTo: "" }, // Redirección para rutas no encontradas
 ];
 
@@ -33,4 +35,4 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes), // Configura las rutas de la aplicación
     provideHttpClient(), // Proporciona el servicio HTTP en toda la aplicación
   ],
-}).catch((err) => console.error(err)); // Maneja cualquier error de inicialización
+}).catch((err) => console.error(err));
