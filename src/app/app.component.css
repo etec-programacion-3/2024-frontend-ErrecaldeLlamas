@@ -1,172 +1,219 @@
-/* Header en tonos claros */
+/* Header */
 header {
-  background-color: #f6f6f6; /* Fondo blanco para un aspecto limpio */
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3); /* Sombra suave */
+  background-color: #4a4aff;
+  color: white;
+  padding: 10px 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* Estilo de la parte superior del header */
-.header-top {
+/* Contenedor principal */
+.header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 10px; /* Espaciado adecuado */
+  position: relative;
 }
 
-/* Estilo del logo */
+/* Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  width: 50px; /* Ancho final de la imagen */
+  height: 50px; /* Alto final de la imagen */
+  overflow: hidden; /* Recorta la imagen fuera de este área */
+  position: relative;
+  background-color: transparent; /* Asegura que el contenedor no tenga fondo */
+}
 .logo {
-  height: 60px; /* Tamaño del logo */
+  width: 100%; /* Asegura que la imagen ocupe el contenedor */
+  height: 100%;
+  transform: scale(1.6); /* Escala un 30% más grande */
+  transform-origin: center; /* Escala desde el centro */
+  position: absolute;
+  top: 0;
+  left: 0;
+  mix-blend-mode: multiply; /* Combina los colores para remover fondo blanco */
+  background-color: transparent;
+  object-fit: cover;
 }
 
+/* Links de navegación */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #e0e0ff;
+}
+
+/* Íconos */
+.icon-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Lupa y barra de búsqueda en la misma línea */
 .search-container {
-  width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaciado entre la lupa y la barra */
+}
+
+.icon-link {
+  font-size: 1.4rem; /* Tamaño uniforme */
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-link:hover {
+  color: #e0e0ff;
+}
+
+.cart-icon,
+.search-icon {
+  font-size: 1.4rem; /* Tamaño consistente */
 }
 
 /* Barra de búsqueda */
+.search-bar-wrapper {
+  display: flex;
+  align-items: center;
+  transition: width 0.5s ease; /* Animación progresiva */
+  overflow: hidden;
+  width: 0; /* Oculta inicialmente */
+}
+
+.search-bar-wrapper.show {
+  width: 250px; /* Ancho visible de la barra de búsqueda */
+}
+
 .search-bar {
-  width: 40vh;
-  padding: 10px 15px; /* Espaciado interno adecuado */
-  margin: 0 1em; /* Espaciado lateral */
-  border: 0.5px solid #000; /* Borde claro */
-  border-radius: 0px; /* Bordes redondeados */
-  font-size: 1em;
-  background-color: #f6f6f6; /* Fondo ligeramente gris */
-  color: #333; /* Color de texto oscuro */
-  transition: border-color 0.3s; /* Transición suave en el borde */
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 2px; /* Estilo más cuadrado */
+  font-size: 1rem;
+  background-color: white;
+  color: #333;
 }
 
 .search-bar:focus {
-  border-color: #007bff; /* Cambia el borde al enfocar */
-  outline: none; /* Sin borde de enfoque por defecto */
+  outline: none;
+  border-color: #4a4aff;
 }
 
-/* Botón de búsqueda */
-.search-button {
-  padding: 10px 15px; /* Espaciado interno */
-  border: none; /* Sin borde */
-  border-radius: 2px; /* Bordes redondeados */
-  background-color: #738090; /* Color de fondo azul */
-  color: #fff; /* Color de texto blanco */
-  cursor: pointer; /* Cambia el cursor al pasar */
-  transition: background-color 0.3s; /* Transición suave */
-  font-size: 1em; /* Tamaño de fuente */
-  margin-left: 20px; /* Espaciado lateral */
+/* Barra de búsqueda */
+.search-container {
+  align-items: center;
+  justify-content: center;
+}
+.search-bar-wrapper {
+  position: relative;
+  overflow: hidden; /* Oculta lo que está fuera del contenedor */
+  width: 0;
+  transition: width 0.5s ease; /* Animación progresiva */
 }
 
-.search-button:hover {
-  background-color: #0056b3; /* Color de fondo al pasar el mouse */
+.search-bar-wrapper.show {
+  width: 250px; /* Ancho visible de la barra de búsqueda */
 }
 
-/* Enlaces del header */
-.header-links {
-  display: flex;
-  align-items: center; /* Alineación vertical centrada */
-  gap: 15px; /* Espaciado entre los enlaces */
+.search-bar {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+  color: #333;
 }
 
-.header-link {
-  color: #333; /* Color de texto oscuro */
-  text-decoration: none; /* Sin subrayado */
-  font-size: 0.9em; /* Tamaño de fuente */
-  font-weight: bold; /* Negrita */
-  transition: color 0.3s; /* Transición suave en el color */
+.search-bar:focus {
+  outline: none;
+  border-color: #4a4aff;
 }
 
-.header-link:hover {
-  color: #007bff; /* Cambia el color al pasar el mouse */
+/* Panel de cuenta */
+.account-container {
+  position: relative;
 }
 
-/* Menú desplegable */
 .account-panel {
-  background-color: #ffffff; /* Fondo blanco */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
-/* Footer en tonos oscuros */
+/* Footer */
 footer {
   background-color: #333;
-  color: #fff;
+  color: white;
   text-align: center;
-  padding: 1.2em;
-  font-size: 0.9em;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-  margin-top: auto;
+  padding: 20px;
 }
 
-/* Asegúrate de que el body y html ocupen toda la altura */
-html,
-body {
-  height: 100%;
-  margin: 0; /* Elimina márgenes predeterminados */
-}
-
-/* Establece un contenedor flexible para la página */
-body {
-  display: flex;
-  flex-direction: column; /* Organiza los hijos en columna */
-}
-
-/* El main ocupa el espacio disponible */
-main {
-  flex: 1; /* Toma el espacio restante entre el header y el footer */
-}
-
-/* Footer en tonos oscuros */
-footer {
-  background-color: #2e2721; /* Fondo oscuro */
-  color: #fff; /* Color de texto blanco */
-  text-align: center;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Sombra superior */
-}
-
-/* Footer en tonos oscuros */
-footer {
-  background-color: #2e2721;
-  color: #fff;
-  text-align: center;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Ajustes para el footer */
 .footer-content {
   display: flex;
-  justify-content: space-between; /* Distribución uniforme con menos espacio */
-  align-items: center;
-  padding: 10px 0; /* Espacio vertical */
-  text-align: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .footer-left,
-.footer-right,
-.footer-center {
-  flex: 1; /* Cada sección ocupa un tercio del espacio disponible */
-  min-width: 400px;
+.footer-center,
+.footer-right {
+  flex: 1;
+  text-align: center;
 }
 
 .footer-title {
-  font-size: 4.5em;
-  position: relative;
-}
-
-.registered {
-  font-size: 0.6em; /* Hace el símbolo de marca registrada más pequeño */
-  position: absolute;
-  top: -0.3em; /* Ajusta la posición vertical del símbolo */
-  left: 8.3em; /* Ajusta la posición horizontal del símbolo */
-  color: #fff;
-}
-
-.footer p {
-  margin: 0;
+  font-size: 1.5rem;
+  color: white;
 }
 
 .social-icon {
-  width: 20px; /* Ajusta el tamaño deseado */
-  height: 20px;
-  margin: 0 5px; /* Espacio entre los íconos */
+  width: 24px;
+  height: 24px;
+  margin: 0 5px;
 }
 
-/* Estilo del contenido principal */
+.social-icon:hover {
+  opacity: 0.8;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 200px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

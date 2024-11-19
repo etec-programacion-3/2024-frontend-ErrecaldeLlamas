@@ -1,23 +1,91 @@
-<div class="banner">
-  <img
-    src="zapatillas-banner.png"
-    alt="Banner de zapatillas"
-    class="banner-image"
-  />
+<div class="toolbar">
+  <div class="view-toggle">
+    <button
+      class="toggle-button"
+      [class.active]="layout === 'grid'"
+      (click)="layout = 'grid'"
+    >
+      <i class="fas fa-th-large"></i> Cuadrícula
+    </button>
+    <button
+      class="toggle-button"
+      [class.active]="layout === 'list'"
+      (click)="layout = 'list'"
+    >
+      <i class="fas fa-list"></i> Lista
+    </button>
+  </div>
 </div>
 
-<div class="product-grid">
-  <div class="product-card" *ngFor="let product of products">
+<!-- Mostrar un spinner mientras se cargan los productos -->
+<div *ngIf="loading" class="spinner-container">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<!-- Vista en cuadrícula -->
+<div *ngIf="layout === 'grid'" class="product-grid">
+  <mat-grid-list cols="3" rowHeight="1:1" gutterSize="24px">
+    <mat-grid-tile *ngFor="let product of products">
+      <mat-card>
+        <img
+          class="grid-image"
+          [src]="product.imageUrl || 'https://via.placeholder.com/150'"
+          alt="{{ product.name || 'Producto sin nombre' }}"
+        />
+        <mat-card-content>
+          <h5>{{ product.name || "Producto sin nombre" }}</h5>
+          <p class="brand">{{ product.brand || "Genérico" }}</p>
+          <p class="price">{{ product.price | currency : "USD" }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="addToCart(product.id)"
+          >
+            Añadir al carrito
+          </button>
+          <button
+            mat-stroked-button
+            color="accent"
+            [routerLink]="['/products', product.id]"
+          >
+            Ver Más
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<!-- Vista en lista -->
+<div *ngIf="layout === 'list'" class="product-list">
+  <div *ngFor="let product of products" class="product-list-item">
     <img
-      [src]="product.imageUrl || 'assets/default-image.jpg'"
-      alt="{{ product.name }}"
+      [src]="product.imageUrl || 'https://via.placeholder.com/150'"
+      alt="{{ product.name || 'Producto sin nombre' }}"
       class="product-image"
     />
-    <h3>{{ product.name }}</h3>
-    <p class="brand">{{ product.brand }} - {{ product.model }}</p>
-    <p class="price">{{ product.price | currency }}</p>
-    <button [routerLink]="['/products', product.id]" class="product-button">
-      Ver Detalles
-    </button>
+    <div class="product-details">
+      <h5>{{ product.name || "Producto sin nombre" }}</h5>
+      <p class="brand">{{ product.brand || "Genérico" }}</p>
+      <p class="price">{{ product.price | currency : "USD" }}</p>
+      <div class="button-group">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="addToCart(product.id)"
+        >
+          Añadir al carrito
+        </button>
+        <button
+          mat-stroked-button
+          color="accent"
+          [routerLink]="['/products', product.id]"
+        >
+          Ver Más
+        </button>
+      </div>
+    </div>
   </div>
 </div>

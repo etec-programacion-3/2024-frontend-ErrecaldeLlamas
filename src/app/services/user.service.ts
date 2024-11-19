@@ -19,25 +19,52 @@ export class UserService {
     private cookieService: CookieService,
     private cartService: CartService,
     private router: Router
-  ) {
-    console.log(this.cookieService);
-  }
+  ) {}
 
-  // Obtener todos los usuarios
-  getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
-  }
-
-  // Obtener un usuario por ID
+  // Obtener un usuario por su ID
   getUserById(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${userId}`);
+    return this.http.get<any>(`${this.apiUrl}/${userId}`).pipe(
+      catchError((error) => {
+        console.error(`Error al obtener usuario con ID ${userId}:`, error);
+        return throwError(() => new Error("Error al obtener el usuario."));
+      })
+    );
   }
 
-  // Obtener los datos del usuario autenticado (perfil)
+  // Verificar si el usuario está autenticado
+  isLoggedIn(): boolean {
+    try {
+      return !!this.cookieService.get("authToken");
+    } catch (error) {
+      console.error("Error al verificar si el usuario está logueado:", error);
+      return false;
+    }
+  }
+
+  // Obtener el token de autenticación
+  getAuthToken(): string | null {
+    return this.cookieService.get("authToken");
+  }
+
+  // Obtener el rol del usuario
+  getUserRole(): string {
+    return this.cookieService.get("userRole");
+  }
+
+  // Obtener el userId del usuario actual
+  getUserId(): string | null {
+    return this.cookieService.get("userId");
+  }
+
+  // Obtener el cartId del usuario actual
+  getUserCartId(): string | null {
+    return this.cookieService.get("cartId");
+  }
+
+  // Obtener datos del usuario autenticado
   getUserData(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/profile`, {
-      headers: this.createAuthHeaders(),
-    });
+    const headers = this.createAuthHeaders();
+    return this.http.get<any>(`${this.apiUrl}/profile`, { headers });
   }
 
   // Crear un nuevo usuario
@@ -47,26 +74,18 @@ export class UserService {
     password: string
   ): Observable<any> {
     const headers = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http.post<any>(
-      this.apiUrl,
-      { username, email, password },
-      { headers }
-    );
-  }
-
-  // Actualizar un usuario
-  updateUser(userId: number, username: string, email: string): Observable<any> {
-    const headers = new HttpHeaders({ "Content-Type": "application/json" });
-    return this.http.put<any>(
-      `${this.apiUrl}/${userId}`,
-      { username, email },
-      { headers }
-    );
-  }
-
-  // Eliminar un usuario
-  deleteUser(userId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${userId}`);
+    return this.http
+      .post<any>(this.apiUrl, { username, email, password }, { headers })
+      .pipe(
+        switchMap((user) => {
+          return this.cartService.createCart(user.id).pipe(
+            tap((cart) => {
+              this.cookieService.set("cartId", cart.id.toString());
+            }),
+            switchMap(() => new Observable((observer) => observer.next(user)))
+          );
+        })
+      );
   }
 
   // Método de inicio de sesión
@@ -75,78 +94,56 @@ export class UserService {
     return this.http
       .post<any>(`${this.apiUrl}/login`, { email, password }, { headers })
       .pipe(
-        tap((response) => {
-          // Guardar los datos en las cookies
-          this.cookieService.set("authToken", response.token);
-          this.cookieService.set("userRole", response.role);
-          this.cookieService.set("userId", response.user.id.toString());
-          if (response.cartId) {
-            this.cookieService.set("cartId", response.cartId.toString());
-          }
-          // Actualizar el estado de autenticación
-          this.isLoggedInSubject.next(true);
-        }),
         switchMap((response) => {
-          if (!response.cartId) {
-            return this.cartService.createCart(response.user.id).pipe(
-              tap((cart) => {
-                this.cookieService.set("cartId", cart.id.toString());
-              }),
-              switchMap(
-                () => new Observable((observer) => observer.next(response))
-              )
-            );
+          if (!response || !response.token) {
+            throw new Error("No se recibió un token en la respuesta.");
           }
-          return new Observable((observer) => observer.next(response));
-        }),
-        tap(() => {
-          this.router.navigate(["/"]);
+
+          // Guardar datos en cookies
+          this.cookieService.set("authToken", response.token);
+          this.cookieService.set("userId", response.user.id.toString());
+          this.cookieService.set("userRole", response.user.role || "user");
+          this.isLoggedInSubject.next(true); // Actualizar el estado de autenticación
+
+          const userId = response.user.id;
+
+          // Intentar obtener el carrito del usuario
+          return this.cartService.getCartByUserId(userId).pipe(
+            tap((cart) => {
+              if (cart && cart.id) {
+                this.cookieService.set("cartId", cart.id.toString());
+              }
+            }),
+            catchError((error) => {
+              // Si no se encuentra un carrito, crear uno nuevo
+              if (error.status === 404) {
+                return this.cartService.createCart(userId).pipe(
+                  tap((newCart) => {
+                    this.cookieService.set("cartId", newCart.id.toString());
+                  })
+                );
+              }
+              return throwError(() => error);
+            }),
+            switchMap(() => {
+              // Propagar la respuesta final después de carrito
+              return new Observable((observer) => observer.next(response));
+            })
+          );
         }),
         catchError((error) => {
           console.error("Error en el inicio de sesión:", error);
-          return throwError(() => new Error("Error en el inicio de sesión."));
+          return throwError(
+            () => new Error("Usuario o contraseña incorrectos.")
+          );
         })
       );
   }
 
-  // Obtener rol del usuario actual
-  getUserRole(): string {
-    const role = this.cookieService.get("role");
-    console.log("User role:", role); // Verifica el valor de role
-    return role;
-  }
-
-  // Verificar si el usuario es administrador
-  isAdmin(): boolean {
-    return this.getUserRole() === "admin";
-  }
-
-  // Obtener el cartId del usuario actual
-  getUserCartId(): string | null {
-    return this.cookieService.get("cartId");
-  }
-
-  // Obtener el userId del usuario actual
-  getUserId(): string | null {
-    return this.cookieService.get("userId");
-  }
-
-  // Verificar si el usuario está autenticado
-  isLoggedIn(): boolean {
-    const loggedIn = this.cookieService
-      ? !!this.cookieService.get("authToken")
-      : false;
-    console.log("User logged in:", loggedIn); // Para depuración
-    return loggedIn;
-  }
-
   // Método de cierre de sesión
   logout(): void {
-    this.cookieService.delete("authToken");
-    this.cookieService.delete("userRole");
-    this.cookieService.delete("userId");
-    this.cookieService.delete("cartId");
-    this.isLoggedInSubject.next(false); // Actualiza el estado de autenticación
+    this.cookieService.deleteAll();
+    this.isLoggedInSubject.next(false); // Actualizar el estado de autenticación
     this.router.navigate(["/auth"]);
   }
 

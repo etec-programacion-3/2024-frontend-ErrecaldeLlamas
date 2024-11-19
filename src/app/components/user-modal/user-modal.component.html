@@ -1,0 +1,27 @@
+<div class="modal-backdrop"></div>
+<div class="modal-content">
+  <div *ngIf="loading">
+    <mat-spinner></mat-spinner>
+    <p>Cargando información...</p>
+  </div>
+
+  <div *ngIf="!loading">
+    <h2>Perfil del Usuario</h2>
+    <p><strong>Nombre:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+
+    <h3>Productos en carrito:</h3>
+    <ul>
+      <li *ngFor="let product of cartProducts">
+        {{ product.name }} (Cantidad: {{ product.quantity }})
+      </li>
+    </ul>
+
+    <button mat-raised-button color="warn" (click)="logout()">
+      Cerrar Sesión
+    </button>
+    <button mat-raised-button color="primary" (click)="closeModal()">
+      Cerrar
+    </button>
+  </div>
+</div>

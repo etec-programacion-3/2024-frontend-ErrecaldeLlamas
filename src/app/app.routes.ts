@@ -7,18 +7,20 @@ import { SearchResultsComponent } from "./components/search-results/search-resul
 import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { UploadProductComponent } from "./components/upload-product/upload-product.component";
-import { CheckoutComponent } from "./components/checkout/checkout.component"; // Importa el componente de checkout
+import { CheckoutComponent } from "./components/checkout/checkout.component";
+import { UserModalComponent } from "./components/user-modal/user-modal.component"; // Importa el modal de usuario
 
 export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
-  { path: "products", component: ProductListComponent }, // Ruta para el listado de productos
-  { path: "products/:id", component: ProductDetailsComponent }, // Ruta para los detalles del producto
+  { path: "products", component: ProductListComponent },
+  { path: "products/:id", component: ProductDetailsComponent },
   { path: "cart", component: CartComponent },
   { path: "profile", component: UserProfileComponent },
   { path: "auth", component: AuthComponent },
   { path: "search", component: SearchResultsComponent },
-  { path: "upload-product", component: UploadProductComponent }, // Ruta para subir productos
-  { path: "checkout", component: CheckoutComponent }, // Ruta para el checkout
-  { path: "**", redirectTo: "home" }, // Redirige cualquier ruta desconocida al home
+  { path: "upload-product", component: UploadProductComponent },
+  { path: "checkout", component: CheckoutComponent },
+  { path: "user-modal", component: UserModalComponent }, // Nueva ruta para el modal
+  { path: "**", redirectTo: "home" },
 ];

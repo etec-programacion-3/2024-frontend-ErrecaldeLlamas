@@ -3,7 +3,7 @@
   <!-- Imagen del producto -->
   <div class="product-image-container">
     <img
-      [src]="'./' + product.imageUrl"
+      [src]="'/' + product.imageUrl"
       alt="{{ product.name }}"
       class="product-image"
     />
@@ -16,7 +16,6 @@
 
     <!-- Botones de acción -->
     <div class="button-group">
-      <button class="buy-now">Comprar ahora</button>
       <button (click)="addToCart()" class="add-to-cart">
         Agregar al Carrito
       </button>

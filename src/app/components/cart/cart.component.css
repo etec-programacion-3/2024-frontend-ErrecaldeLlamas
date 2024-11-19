@@ -1,25 +1,26 @@
-/* cart.component.css */
-
 .cart-container {
   max-width: 800px;
-  margin: auto;
+  margin: 20px auto;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fdfdfd; /* Fondo limpio */
+  border-radius: 12px; /* Bordes suaves */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* Sombra sutil */
+  font-family: "Arial", sans-serif; /* Fuente elegante */
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  color: #333; /* Texto elegante */
 }
 
 .cart-item {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 15px;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 0;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .cart-item:last-child {
@@ -27,49 +28,95 @@ h2 {
 }
 
 .product-image {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #f9f9f9; /* Fondo claro */
 }
 
 .product-info {
   flex-grow: 1;
+  text-align: left;
 }
 
 .product-name {
-  font-size: 1.1em;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #333;
+  color: #2c3e50; /* Azul oscuro */
+  margin-bottom: 8px;
 }
 
 .product-price {
-  color: #e74c3c;
+  color: #e74c3c; /* Rojo elegante */
   font-weight: bold;
-  margin-top: 5px;
+  font-size: 1.1rem;
 }
 
 .quantity-container {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   margin-top: 10px;
+}
+
+.quantity-container label {
+  font-size: 0.9rem;
+  color: #555; /* Gris suave */
 }
 
 .quantity-input {
   width: 60px;
-  padding: 5px;
-  font-size: 1em;
+  padding: 6px;
+  font-size: 1rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
   text-align: center;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.quantity-input:focus {
+  border-color: #3498db; /* Azul más atractivo al enfocar */
+  outline: none;
 }
 
 .cart-total {
   text-align: right;
-  font-size: 1.2em;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-top: 20px;
-  color: #333;
+  color: #34495e; /* Azul grisáceo */
+}
+
+.buy-button {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #2ecc71; /* Verde elegante */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3); /* Sombra suave */
+}
+
+.buy-button:hover {
+  background-color: #27ae60; /* Verde más oscuro al pasar el mouse */
+  box-shadow: 0 6px 16px rgba(39, 174, 96, 0.4); /* Más sombra al hover */
+}
+
+.buy-button:active {
+  background-color: #1e8449; /* Verde más intenso al presionar */
+}
+
+p {
+  text-align: center;
+  color: #7f8c8d; /* Texto gris claro */
+  font-size: 1rem;
+  margin-top: 20px;
 }

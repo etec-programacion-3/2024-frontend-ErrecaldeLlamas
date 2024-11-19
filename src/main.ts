@@ -2,6 +2,8 @@ import { enableProdMode } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { provideRouter, Routes } from "@angular/router";
 import { provideHttpClient } from "@angular/common/http";
+import { provideAnimations } from "@angular/platform-browser/animations"; // Animaciones
+import { importProvidersFrom } from "@angular/core"; // Importa proveedores para Angular Material
 
 // Componentes principales
 import { AppComponent } from "./app/app.component";
@@ -13,7 +15,13 @@ import { ProductDetailsComponent } from "./app/components/product-details/produc
 import { CartComponent } from "./app/components/cart/cart.component";
 import { SearchResultsComponent } from "./app/components/search-results/search-results.component";
 import { UploadProductComponent } from "./app/components/upload-product/upload-product.component";
-import { CheckoutComponent } from "./app/components/checkout/checkout.component"; // Importa el componente de checkout
+import { CheckoutComponent } from "./app/components/checkout/checkout.component";
+
+// Módulos de Angular Material necesarios
+import { MatDialogModule } from "@angular/material/dialog"; // Para modales
+import { MatSnackBarModule } from "@angular/material/snack-bar"; // Para notificaciones
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations"; // Para animaciones
+import { CookieService } from "ngx-cookie-service"; // Servicio de cookies
 
 // Define las rutas de la aplicación
 const routes: Routes = [
@@ -34,5 +42,12 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes), // Configura las rutas de la aplicación
     provideHttpClient(), // Proporciona el servicio HTTP en toda la aplicación
+    provideAnimations(), // Habilita animaciones
+    importProvidersFrom(
+      MatDialogModule, // Modales
+      MatSnackBarModule, // Notificaciones
+      BrowserAnimationsModule // Animaciones del navegador
+    ),
+    CookieService, // Servicio para manejo de cookies
   ],
-}).catch((err) => console.error(err));
+}).catch((err) => console.error("Error al inicializar la aplicación:", err));

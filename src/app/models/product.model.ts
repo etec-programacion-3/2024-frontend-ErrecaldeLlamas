@@ -9,4 +9,6 @@ export interface Product {
   description: string;
   stock: number;
   imageUrl: string; // Añade esta línea
+  rating?: number; // Opcional
+  inventoryStatus?: string; // Propiedad opcional
 }

@@ -1,50 +1,72 @@
-// app.component.ts
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Router } from "@angular/router";
-import { UserService } from "./services/user.service";
+import { CookieService } from "ngx-cookie-service";
+import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { CommonModule } from "@angular/common";
-import { UserProfileComponent } from "./components/user-profile/user-profile.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import {
+  faSearch,
+  faShoppingCart,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { UserModalComponent } from "./components/user-modal/user-modal.component";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, UserProfileComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    FontAwesomeModule,
+    MatDialogModule,
+    UserModalComponent,
+  ],
 })
 export class AppComponent implements OnInit {
   title = "angular-ecommerce";
-  searchQuery: string = "";
-  isAccountPanelOpen: boolean = false;
-  isLoggedIn: boolean = false;
-  isAdmin: boolean = false;
+  searchQuery: string = ""; // Query de búsqueda ingresada por el usuario
+  isSearchBarVisible: boolean = false; // Estado de visibilidad de la barra de búsqueda
+  isLoggedIn: boolean = false; // Estado de inicio de sesión
+  isAdmin: boolean = false; // Estado de administrador
 
-  constructor(public userService: UserService, private router: Router) {}
+  // Iconos de Font Awesome
+  faSearch = faSearch;
+  faShoppingCart = faShoppingCart;
+  faUser = faUser;
+
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private cookieService: CookieService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    // Suscribirse al estado de inicio de sesión
-    this.userService.isLoggedIn$.subscribe((loggedIn) => {
-      this.isLoggedIn = loggedIn;
+    this.updateAuthStatus();
+    setInterval(() => this.updateAuthStatus(), 1000);
+  }
 
-      // Si el usuario está autenticado, obtenemos el ID del usuario y luego sus datos
-      if (this.isLoggedIn) {
-        const userId = this.userService.getUserId(); // Obtener el ID del usuario desde la cookie
-        if (userId) {
-          this.userService.getUserById(+userId).subscribe(
-            (userData) => {
-              // Extraer el rol y verificar si es "admin"
-              this.isAdmin = userData.role === "admin";
-              console.log("User role:", userData.role); // Verificar el rol en la consola
-            },
-            (error) => {
-              console.error("Error al obtener los datos del usuario:", error);
-            }
-          );
-        }
-      }
-    });
+  private updateAuthStatus(): void {
+    const authToken = this.cookieService.get("authToken");
+    const userRole = this.cookieService.get("userRole");
+
+    const newIsLoggedIn = !!authToken;
+    const newIsAdmin = userRole === "admin";
+
+    if (this.isLoggedIn !== newIsLoggedIn || this.isAdmin !== newIsAdmin) {
+      this.isLoggedIn = newIsLoggedIn;
+      this.isAdmin = newIsAdmin;
+      this.cdr.detectChanges();
+    }
+  }
+
+  toggleSearchBar(): void {
+    this.isSearchBarVisible = !this.isSearchBarVisible;
   }
 
   onSearch(): void {
@@ -55,18 +77,17 @@ export class AppComponent implements OnInit {
     }
   }
 
-  toggleAccountPanel(): void {
-    this.isAccountPanelOpen = !this.isAccountPanelOpen;
+  onCartButtonClick(): void {
+    if (this.isLoggedIn) {
+      this.router.navigate(["/cart"]);
+    } else {
+      this.router.navigate(["/auth"]);
+    }
   }
 
-  closeAccountPanel(): void {
-    this.isAccountPanelOpen = false;
-  }
-
-  logout(): void {
-    this.userService.logout();
-    this.isLoggedIn = false;
-    this.isAdmin = false; // Restablecer isAdmin al cerrar sesión
-    this.router.navigate(["/auth"]);
+  openUserModal(): void {
+    this.dialog.open(UserModalComponent, {
+      disableClose: true, // Evita que se cierre al hacer clic fuera del modal
+    });
   }
 }
